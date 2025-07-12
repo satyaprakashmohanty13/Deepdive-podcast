@@ -1,0 +1,9 @@
+{
+  "name": "cloudinary-music-streamer",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A simple music streaming site using Cloudinary and a serverless function.",
+  "dependencies": {
+    "cloudinary": "^2.2.0"
+  }
+}
