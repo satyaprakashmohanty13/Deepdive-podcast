@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cloud Music Stream - Spotify Style</title>
+    <title>Deepdive Podcasts</title>
     <!-- Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Inter -->
@@ -101,7 +101,7 @@
         <aside id="sidebar" class="w-64 bg-black text-white p-4 flex-col hidden md:flex">
             <!-- Spotify Logo (Placeholder) -->
             <div class="mb-8 mt-2">
-                <img src="https://placehold.co/120x40/000000/1DB954?text=Spotify" alt="Spotify Logo" class="h-10">
+                <img src="https://placehold.co/120x40/000000/1DB954?text=Dashboard" alt="Spotify Logo" class="h-10">
             </div>
 
             <!-- Navigation Links -->
@@ -121,10 +121,10 @@
             <div class="mt-8">
                 <h3 class="text-md font-bold text-gray-400 mb-4 uppercase tracking-wider">Playlists</h3>
                 <ul class="space-y-2 text-sm">
-                    <li><a href="#" id="playlist-my-top-songs" class="block text-gray-400 hover:text-white transition-colors rounded-md p-1">My Top Songs</a></li>
-                    <li><a href="#" id="playlist-discover-weekly" class="block text-gray-400 hover:text-white transition-colors rounded-md p-1">Discover Weekly</a></li>
-                    <li><a href="#" id="playlist-liked-songs" class="block text-gray-400 hover:text-white transition-colors rounded-md p-1">Liked Songs</a></li>
-                    <li><a href="#" id="playlist-workout-mix" class="block text-gray-400 hover:text-white transition-colors rounded-md p-1">Workout Mix</a></li>
+                    <li><a href="#" id="playlist-my-top-songs" class="block text-gray-400 hover:text-white transition-colors rounded-md p-1">Recents</a></li>
+                    <li><a href="#" id="playlist-discover-weekly" class="block text-gray-400 hover:text-white transition-colors rounded-md p-1">Specials</a></li>
+                    <li><a href="#" id="playlist-liked-songs" class="block text-gray-400 hover:text-white transition-colors rounded-md p-1">Mysterious</a></li>
+                    <li><a href="#" id="playlist-workout-mix" class="block text-gray-400 hover:text-white transition-colors rounded-md p-1">Scratch</a></li>
                 </ul>
             </div>
         </aside>
@@ -140,7 +140,7 @@
                         <i class="fas fa-bars"></i>
                     </button>
                     <!-- Website Name -->
-                    <span class="text-white text-xl font-bold ml-2">Cloud Music Stream</span>
+                    <span class="text-white text-xl font-bold ml-2">Deepdive Podcasts</span>
                     <!-- Navigation buttons -->
                     <button class="bg-black text-white p-2 rounded-full hover:bg-gray-800 transition-colors hidden md:block">
                         <i class="fas fa-chevron-left"></i>
@@ -162,9 +162,9 @@
                     <input type="text" id="home-search-input" placeholder="What do you want to listen to?" class="w-full p-3 rounded-full bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500">
                 </div>
 
-                <!-- Main Sections - "Good evening" -->
+                <!-- Main Sections  -->
                 <section class="mb-10">
-                    <h2 class="text-3xl font-bold text-white mb-6">Good evening</h2>
+                    <h2 class="text-3xl font-bold text-white mb-6">Welcome To Deepdive 🤗</h2>
                     <!-- Playlist Container - where fetched songs will be displayed -->
                     <div id="playlist" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
                         <!-- Loading State -->
@@ -201,7 +201,7 @@
             <img id="current-song-album-art" src="https://placehold.co/60x60/1DB954/FFFFFF?text=Album" alt="Album Art" class="w-16 h-16 rounded-md shadow-md flex-shrink-0">
             <div class="flex flex-col min-w-0">
                 <p id="current-song-title" class="text-white font-semibold text-lg truncate">Not Playing</p>
-                <p id="current-song-artist" class="text-gray-400 text-sm truncate">Select a song</p>
+                <p id="current-song-artist" class="text-gray-400 text-sm truncate">Select a Podcast</p>
             </div>
         </div>
 
