@@ -3,68 +3,281 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cloud Music Stream</title>
+    <title>Cloud Music Stream - Spotify Style</title>
     <!-- Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Custom styles for a cleaner audio player */
+        /* Custom scrollbar for a more Spotify-like feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #282828; /* Darker track */
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #535353; /* Dark gray thumb */
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #727272; /* Lighter gray on hover */
+        }
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6; /* A light gray background */
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Prevent body scroll, main content will scroll */
+            background-color: #000; /* Spotify black background */
+            color: #b3b3b3; /* Light gray text */
         }
-        /* Style the audio player */
-        audio {
-            width: 100%;
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        /* Hide default audio controls for the hidden player */
+        audio::-webkit-media-controls-panel {
+            display: none !important;
+            -webkit-appearance: none;
+        }
+        audio::-webkit-media-controls-play-button,
+        audio::-webkit-media-controls-current-time-display,
+        audio::-webkit-media-controls-time-remaining-display,
+        audio::-webkit-media-controls-timeline,
+        audio::-webkit-media-controls-volume-slider {
+            display: none !important;
+            -webkit-appearance: none;
+        }
+        /* Custom styling for the range input (progress bar and volume slider) */
+        input[type="range"] {
+            -webkit-appearance: none; /* Override default appearance */
+            appearance: none;
+            background: transparent; /* Hide default track */
+            cursor: pointer;
+        }
+        input[type="range"]::-webkit-slider-runnable-track {
+            background: #404040; /* Dark gray track */
+            border-radius: 5px;
+            height: 4px;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none; /* Override default appearance */
+            appearance: none;
+            height: 12px;
+            width: 12px;
+            background-color: #1DB954; /* Spotify green thumb */
+            border-radius: 50%;
+            margin-top: -4px; /* Center thumb vertically */
+            box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+        }
+        input[type="range"]:hover::-webkit-slider-thumb {
+            background-color: #1ED760; /* Lighter green on hover */
+        }
+        input[type="range"]::-moz-range-track {
+            background: #404040;
+            border-radius: 5px;
+            height: 4px;
+        }
+        input[type="range"]::-moz-range-thumb {
+            height: 12px;
+            width: 12px;
+            background-color: #1DB954;
+            border-radius: 50%;
+            box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+        }
+        input[type="range"]:hover::-moz-range-thumb {
+            background-color: #1ED760;
         }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
+<body class="flex flex-col h-screen">
 
-    <div class="container mx-auto p-4 sm:p-6 lg:p-8 max-w-4xl">
+    <!-- Main layout: Sidebar + Main Content -->
+    <div class="flex flex-1 overflow-hidden">
 
-        <!-- Header -->
-        <header class="text-center mb-8">
-            <h1 class="text-4xl font-bold text-gray-900">My Music Cloud</h1>
-            <p class="text-lg text-gray-600 mt-2">Songs streamed directly from the cloud.</p>
-        </header>
-
-        <!-- Playlist Container -->
-        <main id="playlist" class="space-y-6">
-            <!-- Loading State -->
-            <div id="loading" class="text-center py-10">
-                <p class="text-xl text-gray-500">Loading your music...</p>
+        <!-- Sidebar -->
+        <!-- Hidden on small screens, visible on medium and larger screens -->
+        <aside class="w-64 bg-black text-white p-4 flex flex-col hidden md:flex">
+            <!-- Spotify Logo (Placeholder) -->
+            <div class="mb-8 mt-2">
+                <img src="https://placehold.co/120x40/000000/1DB954?text=Spotify" alt="Spotify Logo" class="h-10">
             </div>
-            <!-- Error Message Container -->
-            <div id="error-message" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg relative" role="alert">
-                <strong class="font-bold">Oops!</strong>
-                <span class="block sm:inline">Something went wrong while fetching the music.</span>
+
+            <!-- Navigation Links -->
+            <nav class="space-y-4">
+                <a href="#" class="flex items-center text-lg font-semibold text-white hover:text-gray-300 transition-colors rounded-md p-2">
+                    <i class="fas fa-home text-2xl mr-4"></i> Home
+                </a>
+                <a href="#" class="flex items-center text-lg font-semibold text-white hover:text-gray-300 transition-colors rounded-md p-2">
+                    <i class="fas fa-search text-2xl mr-4"></i> Search
+                </a>
+                <a href="#" class="flex items-center text-lg font-semibold text-white hover:text-gray-300 transition-colors rounded-md p-2">
+                    <i class="fas fa-book text-2xl mr-4"></i> Your Library
+                </a>
+            </nav>
+
+            <!-- Playlists Section (Placeholder) -->
+            <div class="mt-8">
+                <h3 class="text-md font-bold text-gray-400 mb-4 uppercase tracking-wider">Playlists</h3>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#" class="block text-gray-400 hover:text-white transition-colors rounded-md p-1">My Top Songs</a></li>
+                    <li><a href="#" class="block text-gray-400 hover:text-white transition-colors rounded-md p-1">Discover Weekly</a></li>
+                    <li><a href="#" class="block text-gray-400 hover:text-white transition-colors rounded-md p-1">Liked Songs</a></li>
+                    <li><a href="#" class="block text-gray-400 hover:text-white transition-colors rounded-md p-1">Workout Mix</a></li>
+                </ul>
             </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <!-- The pb-24 class adds padding to the bottom to prevent content from being hidden by the fixed player bar -->
+        <main class="flex-1 bg-gradient-to-b from-gray-900 to-black p-6 overflow-y-auto pb-24">
+            <!-- Top Bar (for navigation and user actions) -->
+            <div class="flex justify-between items-center mb-8">
+                <div class="flex items-center space-x-4">
+                    <!-- Navigation buttons -->
+                    <button class="bg-black text-white p-2 rounded-full hover:bg-gray-800 transition-colors">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="bg-black text-white p-2 rounded-full hover:bg-gray-800 transition-colors">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <!-- User action buttons -->
+                    <button class="bg-white text-black px-4 py-2 rounded-full font-bold text-sm hover:scale-105 transition-transform">Sign Up</button>
+                    <button class="bg-gray-800 text-white px-4 py-2 rounded-full font-bold text-sm hover:bg-gray-700 transition-colors">Log In</button>
+                </div>
+            </div>
+
+            <!-- Main Sections - "Good evening" -->
+            <section class="mb-10">
+                <h2 class="text-3xl font-bold text-white mb-6">Good evening</h2>
+                <!-- Playlist Container - where fetched songs will be displayed -->
+                <div id="playlist" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <!-- Loading State -->
+                    <div id="loading" class="col-span-full text-center py-10">
+                        <p class="text-xl text-gray-400">Loading your music...</p>
+                    </div>
+                    <!-- Error Message Container -->
+                    <div id="error-message" class="hidden col-span-full bg-red-800 border border-red-600 text-red-200 px-4 py-3 rounded-lg relative" role="alert">
+                        <strong class="font-bold">Oops!</strong>
+                        <span class="block sm:inline">Something went wrong while fetching the music.</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Placeholder for other sections (e.g., "Your top mixes") -->
+            <section class="mb-10">
+                <h2 class="text-3xl font-bold text-white mb-6">Your top mixes</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <!-- Example Cards for demonstration -->
+                    <div class="relative bg-gray-800 p-4 rounded-lg shadow-lg hover:bg-gray-700 transition-colors cursor-pointer group">
+                        <img src="https://placehold.co/150x150/1DB954/FFFFFF?text=Mix+1" alt="Daily Mix 1 Album Art" class="w-full h-auto rounded-md mb-4 shadow-md">
+                        <h3 class="text-lg font-semibold text-white truncate">Daily Mix 1</h3>
+                        <p class="text-sm text-gray-400">Chill beats for your morning</p>
+                        <!-- Play button overlay on hover -->
+                        <button class="absolute bottom-20 right-6 bg-green-500 text-black p-3 rounded-full shadow-lg opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2 transition-all duration-300 ease-in-out">
+                            <i class="fas fa-play"></i>
+                        </button>
+                    </div>
+                    <div class="relative bg-gray-800 p-4 rounded-lg shadow-lg hover:bg-gray-700 transition-colors cursor-pointer group">
+                        <img src="https://placehold.co/150x150/1DB954/FFFFFF?text=Mix+2" alt="Workout Jams Album Art" class="w-full h-auto rounded-md mb-4 shadow-md">
+                        <h3 class="text-lg font-semibold text-white truncate">Workout Jams</h3>
+                        <p class="text-sm text-gray-400">High energy for your workout</p>
+                        <button class="absolute bottom-20 right-6 bg-green-500 text-black p-3 rounded-full shadow-lg opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2 transition-all duration-300 ease-in-out">
+                            <i class="fas fa-play"></i>
+                        </button>
+                    </div>
+                     <div class="relative bg-gray-800 p-4 rounded-lg shadow-lg hover:bg-gray-700 transition-colors cursor-pointer group">
+                        <img src="https://placehold.co/150x150/1DB954/FFFFFF?text=Mix+3" alt="Focus Flow Album Art" class="w-full h-auto rounded-md mb-4 shadow-md">
+                        <h3 class="text-lg font-semibold text-white truncate">Focus Flow</h3>
+                        <p class="text-sm text-gray-400">Background music for concentration</p>
+                        <button class="absolute bottom-20 right-6 bg-green-500 text-black p-3 rounded-full shadow-lg opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2 transition-all duration-300 ease-in-out">
+                            <i class="fas fa-play"></i>
+                        </button>
+                    </div>
+                    <div class="relative bg-gray-800 p-4 rounded-lg shadow-lg hover:bg-gray-700 transition-colors cursor-pointer group">
+                        <img src="https://placehold.co/150x150/1DB954/FFFFFF?text=Mix+4" alt="Evening Acoustic Album Art" class="w-full h-auto rounded-md mb-4 shadow-md">
+                        <h3 class="text-lg font-semibold text-white truncate">Evening Acoustic</h3>
+                        <p class="text-sm text-gray-400">Unwind with soothing tunes</p>
+                        <button class="absolute bottom-20 right-6 bg-green-500 text-black p-3 rounded-full shadow-lg opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2 transition-all duration-300 ease-in-out">
+                            <i class="fas fa-play"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
         </main>
-
-        <!-- Footer -->
-        <footer class="text-center mt-12 text-gray-500">
-            <p>Powered by Cloudinary & Vercel</p>
-        </footer>
     </div>
+
+    <!-- Bottom Player Bar - Fixed at the bottom of the viewport -->
+    <div id="player-bar" class="fixed bottom-0 left-0 right-0 bg-gray-900 h-24 flex items-center justify-between px-6 z-50">
+        <!-- Current Song Info -->
+        <div class="flex items-center space-x-4 w-1/3 min-w-0">
+            <img id="current-song-album-art" src="https://placehold.co/60x60/1DB954/FFFFFF?text=Album" alt="Album Art" class="w-16 h-16 rounded-md shadow-md flex-shrink-0">
+            <div class="flex flex-col min-w-0">
+                <p id="current-song-title" class="text-white font-semibold text-lg truncate">Not Playing</p>
+                <p id="current-song-artist" class="text-gray-400 text-sm truncate">Select a song</p>
+            </div>
+        </div>
+
+        <!-- Player Controls -->
+        <div class="flex flex-col items-center justify-center w-1/3 max-w-xl">
+            <div class="flex items-center space-x-6 mb-2">
+                <button class="text-gray-400 hover:text-white text-xl"><i class="fas fa-random"></i></button>
+                <button class="text-gray-400 hover:text-white text-xl"><i class="fas fa-step-backward"></i></button>
+                <button id="play-pause-button" class="bg-white text-black p-3 rounded-full text-xl hover:scale-105 transition-transform">
+                    <i class="fas fa-play"></i>
+                </button>
+                <button class="text-gray-400 hover:text-white text-xl"><i class="fas fa-step-forward"></i></button>
+                <button class="text-gray-400 hover:text-white text-xl"><i class="fas fa-redo"></i></button>
+            </div>
+            <!-- Progress Bar -->
+            <div class="flex items-center w-full max-w-md space-x-2">
+                <span id="current-time" class="text-xs text-gray-400">0:00</span>
+                <input type="range" id="progress-bar" value="0" min="0" max="100" class="flex-1 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-green-500">
+                <span id="duration" class="text-xs text-gray-400">0:00</span>
+            </div>
+        </div>
+
+        <!-- Volume and Other Controls -->
+        <div class="flex items-center justify-end space-x-4 w-1/3">
+            <button class="text-gray-400 hover:text-white text-xl hidden sm:block"><i class="fas fa-microphone"></i></button>
+            <button class="text-gray-400 hover:text-white text-xl hidden sm:block"><i class="fas fa-list"></i></button>
+            <button class="text-gray-400 hover:text-white text-xl"><i class="fas fa-volume-up"></i></button>
+            <input type="range" id="volume-slider" value="100" min="0" max="100" class="w-24 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-green-500 hidden sm:block">
+        </div>
+    </div>
+
+    <!-- Hidden Audio Player - Used for actual playback -->
+    <audio id="hidden-audio-player" class="hidden"></audio>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const playlistContainer = document.getElementById('playlist');
             const loadingIndicator = document.getElementById('loading');
             const errorMessage = document.getElementById('error-message');
+            const hiddenAudioPlayer = document.getElementById('hidden-audio-player');
+            const playPauseButton = document.getElementById('play-pause-button');
+            const progressBar = document.getElementById('progress-bar');
+            const currentTimeSpan = document.getElementById('current-time');
+            const durationSpan = document.getElementById('duration');
+            const volumeSlider = document.getElementById('volume-slider');
+            const currentSongTitle = document.getElementById('current-song-title');
+            const currentSongArtist = document.getElementById('current-song-artist');
+            const currentSongAlbumArt = document.getElementById('current-song-album-art');
+
+            let currentPlayingSong = null; // To keep track of the currently playing song object
 
             // --- IMPORTANT ---
             // Replace this URL with the URL of your deployed serverless function.
             // If you are developing locally with the Vercel CLI, this will be http://localhost:3000/api/music
             const API_ENDPOINT = '/api/music'; // This works when deployed on Vercel
 
-            // Function to fetch music from our serverless API
+            /**
+             * Fetches music data from the API endpoint.
+             * Displays loading indicator and handles errors.
+             */
             async function fetchMusic() {
                 try {
                     const response = await fetch(API_ENDPOINT);
@@ -73,24 +286,28 @@
                     }
                     const songs = await response.json();
                     
-                    // Hide loading indicator
+                    // Hide loading indicator once data is fetched
                     loadingIndicator.style.display = 'none';
                     
-                    // Display the songs
+                    // Display the fetched songs
                     displaySongs(songs);
 
                 } catch (error) {
                     console.error('Failed to fetch music:', error);
-                    // Hide loading indicator and show error message
+                    // Hide loading indicator and show error message on failure
                     loadingIndicator.style.display = 'none';
                     errorMessage.classList.remove('hidden');
                 }
             }
 
-            // Function to display the songs on the page
+            /**
+             * Displays the fetched songs as Spotify-like cards in the playlist container.
+             * @param {Array<Object>} songs - An array of song objects with properties like title and secure_url.
+             */
             function displaySongs(songs) {
                 if (!songs || songs.length === 0) {
-                    playlistContainer.innerHTML = '<p class="text-center text-gray-500">No songs found. Upload some MP3 or WAV files to Cloudinary!</p>';
+                    // Display a message if no songs are found
+                    playlistContainer.innerHTML = '<p class="col-span-full text-center text-gray-400">No songs found. Upload some MP3 or WAV files to Cloudinary!</p>';
                     return;
                 }
 
@@ -98,34 +315,141 @@
                 playlistContainer.innerHTML = '';
 
                 songs.forEach(song => {
-                    // Create the card for each song
-                    const songElement = document.createElement('div');
-                    songElement.className = 'bg-white p-4 rounded-lg shadow-md flex flex-col space-y-3';
-                    
-                    // Create the title element
-                    const titleElement = document.createElement('h2');
-                    titleElement.className = 'text-xl font-semibold text-gray-800';
+                    // Create the card element for each song
+                    const songCard = document.createElement('div');
+                    songCard.className = 'relative bg-gray-800 p-4 rounded-lg shadow-lg hover:bg-gray-700 transition-colors cursor-pointer group';
+                    // Store song data as data attributes for easy access
+                    songCard.dataset.src = song.secure_url;
+                    songCard.dataset.title = song.title;
+                    songCard.dataset.artist = 'Unknown Artist'; // Placeholder for artist, ideally from API
+
+                    // Create Album Art image
+                    const albumArt = document.createElement('img');
+                    // Generate a placeholder image URL based on the song title
+                    albumArt.src = `https://placehold.co/150x150/1DB954/FFFFFF?text=${encodeURIComponent(song.title.substring(0, 5))}`; 
+                    albumArt.alt = song.title;
+                    albumArt.className = 'w-full h-auto rounded-md mb-4 shadow-md';
+                    // Fallback image in case the generated one fails
+                    albumArt.onerror = () => albumArt.src = 'https://placehold.co/150x150/1DB954/FFFFFF?text=Album'; 
+
+                    // Create Song Title element
+                    const titleElement = document.createElement('h3');
+                    titleElement.className = 'text-lg font-semibold text-white truncate';
                     titleElement.textContent = song.title;
 
-                    // Create the audio player element
-                    const audioElement = document.createElement('audio');
-                    audioElement.controls = true;
-                    audioElement.src = song.secure_url;
-                    audioElement.preload = 'metadata'; // Only load metadata initially
+                    // Create Artist element (Placeholder)
+                    const artistElement = document.createElement('p');
+                    artistElement.className = 'text-sm text-gray-400 truncate';
+                    artistElement.textContent = 'Unknown Artist'; // Replace with actual artist if available
 
-                    // Append title and audio player to the song card
-                    songElement.appendChild(titleElement);
-                    songElement.appendChild(audioElement);
+                    // Create Play Button Overlay
+                    const playButtonOverlay = document.createElement('button');
+                    playButtonOverlay.className = 'absolute bottom-20 right-6 bg-green-500 text-black p-3 rounded-full shadow-lg opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2 transition-all duration-300 ease-in-out';
+                    playButtonOverlay.innerHTML = '<i class="fas fa-play"></i>';
 
-                    // Append the song card to the playlist container
-                    playlistContainer.appendChild(songElement);
+                    // Append all elements to the song card
+                    songCard.appendChild(albumArt);
+                    songCard.appendChild(titleElement);
+                    songCard.appendChild(artistElement);
+                    songCard.appendChild(playButtonOverlay);
+                    playlistContainer.appendChild(songCard);
+
+                    // Add event listener to the whole card to play the song
+                    songCard.addEventListener('click', () => playSong(song.secure_url, song.title, 'Unknown Artist'));
+                    // Add event listener to the play button overlay to play the song
+                    playButtonOverlay.addEventListener('click', (e) => {
+                        e.stopPropagation(); // Prevent the card's click event from firing simultaneously
+                        playSong(song.secure_url, song.title, 'Unknown Artist');
+                    });
                 });
             }
 
-            // Initial call to fetch the music
+            /**
+             * Plays a specified song in the hidden audio player and updates the player bar UI.
+             * @param {string} src - The URL of the audio file.
+             * @param {string} title - The title of the song.
+             * @param {string} artist - The artist of the song.
+             */
+            function playSong(src, title, artist) {
+                if (hiddenAudioPlayer.src !== src) {
+                    // If a new song is selected, load it and play
+                    hiddenAudioPlayer.src = src;
+                    currentPlayingSong = { src, title, artist };
+                    currentSongTitle.textContent = title;
+                    currentSongArtist.textContent = artist;
+                    // Update album art in the player bar
+                    currentSongAlbumArt.src = `https://placehold.co/60x60/1DB954/FFFFFF?text=${encodeURIComponent(title.substring(0, 3))}`; 
+                    hiddenAudioPlayer.play();
+                    playPauseButton.innerHTML = '<i class="fas fa-pause"></i>'; // Change icon to pause
+                } else if (hiddenAudioPlayer.paused) {
+                    // If the same song is paused, resume playback
+                    hiddenAudioPlayer.play();
+                    playPauseButton.innerHTML = '<i class="fas fa-pause"></i>'; // Change icon to pause
+                } else {
+                    // If the same song is playing, pause it
+                    hiddenAudioPlayer.pause();
+                    playPauseButton.innerHTML = '<i class="fas fa-play"></i>'; // Change icon to play
+                }
+            }
+
+            // Event listener for the main play/pause button in the player bar
+            playPauseButton.addEventListener('click', () => {
+                if (hiddenAudioPlayer.src) { // Only toggle if a song URL is loaded
+                    if (hiddenAudioPlayer.paused) {
+                        hiddenAudioPlayer.play();
+                        playPauseButton.innerHTML = '<i class="fas fa-pause"></i>';
+                    } else {
+                        hiddenAudioPlayer.pause();
+                        playPauseButton.innerHTML = '<i class="fas fa-play"></i>';
+                    }
+                }
+            });
+
+            // Update progress bar and current time as song plays
+            hiddenAudioPlayer.addEventListener('timeupdate', () => {
+                if (!isNaN(hiddenAudioPlayer.duration)) { // Ensure duration is a valid number
+                    const progress = (hiddenAudioPlayer.currentTime / hiddenAudioPlayer.duration) * 100;
+                    progressBar.value = progress;
+                    currentTimeSpan.textContent = formatTime(hiddenAudioPlayer.currentTime);
+                }
+            });
+
+            // Update total duration when song metadata is loaded
+            hiddenAudioPlayer.addEventListener('loadedmetadata', () => {
+                if (!isNaN(hiddenAudioPlayer.duration)) {
+                    durationSpan.textContent = formatTime(hiddenAudioPlayer.duration);
+                }
+            });
+
+            // Seek functionality: when user drags the progress bar
+            progressBar.addEventListener('input', () => {
+                if (!isNaN(hiddenAudioPlayer.duration)) {
+                    const seekTime = (progressBar.value / 100) * hiddenAudioPlayer.duration;
+                    hiddenAudioPlayer.currentTime = seekTime;
+                }
+            });
+
+            // Volume control: when user drags the volume slider
+            volumeSlider.addEventListener('input', () => {
+                hiddenAudioPlayer.volume = volumeSlider.value / 100;
+            });
+
+            /**
+             * Formats time in seconds into a "minutes:seconds" string (e.g., 3:05).
+             * @param {number} seconds - The time in seconds.
+             * @returns {string} The formatted time string.
+             */
+            function formatTime(seconds) {
+                const minutes = Math.floor(seconds / 60);
+                const secs = Math.floor(seconds % 60);
+                return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+            }
+
+            // Initial call to fetch the music when the page loads
             fetchMusic();
         });
     </script>
 
 </body>
 </html>
+
