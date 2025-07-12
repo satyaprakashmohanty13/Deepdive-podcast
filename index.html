@@ -106,13 +106,13 @@
 
             <!-- Navigation Links -->
             <nav class="space-y-4">
-                <a href="#" class="flex items-center text-lg font-semibold text-white hover:text-gray-300 transition-colors rounded-md p-2">
+                <a href="#" id="nav-home" class="flex items-center text-lg font-semibold text-white hover:text-gray-300 transition-colors rounded-md p-2">
                     <i class="fas fa-home text-2xl mr-4"></i> Home
                 </a>
                 <a href="#" class="flex items-center text-lg font-semibold text-white hover:text-gray-300 transition-colors rounded-md p-2">
                     <i class="fas fa-search text-2xl mr-4"></i> Search
                 </a>
-                <a href="#" class="flex items-center text-lg font-semibold text-white hover:text-gray-300 transition-colors rounded-md p-2">
+                <a href="#" id="nav-library" class="flex items-center text-lg font-semibold text-white hover:text-gray-300 transition-colors rounded-md p-2">
                     <i class="fas fa-book text-2xl mr-4"></i> Your Library
                 </a>
             </nav>
@@ -154,76 +154,67 @@
                 </div>
             </div>
 
-            <!-- Search Bar -->
-            <div class="mb-8">
-                <input type="text" id="search-input" placeholder="What do you want to listen to?" class="w-full p-3 rounded-full bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500">
+            <!-- Home View -->
+            <div id="home-view" class="active-view">
+                <!-- Search Bar for Home View -->
+                <div class="mb-8">
+                    <input type="text" id="home-search-input" placeholder="What do you want to listen to?" class="w-full p-3 rounded-full bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500">
+                </div>
+
+                <!-- Main Sections - "Good evening" -->
+                <section class="mb-10">
+                    <h2 class="text-3xl font-bold text-white mb-6">Good evening</h2>
+                    <!-- Playlist Container - where fetched songs will be displayed -->
+                    <div id="playlist" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                        <!-- Loading State -->
+                        <div id="loading" class="col-span-full text-center py-10">
+                            <p class="text-xl text-gray-400">Loading your music...</p>
+                        </div>
+                        <!-- Error Message Container -->
+                        <div id="error-message" class="hidden col-span-full bg-red-800 border border-red-600 text-red-200 px-4 py-3 rounded-lg relative" role="alert">
+                            <strong class="font-bold">Oops!</strong>
+                            <span class="block sm:inline">Something went wrong while fetching the music.</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Placeholder for other sections (e.g., "Your top mixes") -->
+                <section class="mb-10">
+                    <h2 class="text-3xl font-bold text-white mb-6">Your top mixes</h2>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                        <!-- Example Cards for demonstration -->
+                        <div class="relative bg-gray-800 p-3 rounded-lg shadow-lg hover:bg-gray-700 transition-colors cursor-pointer group">
+                            <img src="https://placehold.co/100x100/1DB954/FFFFFF?text=Mix+1" alt="Daily Mix 1 Album Art" class="w-full h-auto rounded-md mb-2 shadow-md">
+                            <h3 class="text-base font-semibold text-white truncate">Daily Mix 1</h3>
+                            <p class="text-xs text-gray-400">Chill beats for your morning</p>
+                            <!-- Play button overlay on hover -->
+                            <button class="absolute bottom-12 right-4 bg-green-500 text-black p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2 transition-all duration-300 ease-in-out">
+                                <i class="fas fa-play text-sm"></i>
+                            </button>
+                        </div>
+                        <div class="relative bg-gray-800 p-3 rounded-lg shadow-lg hover:bg-gray-700 transition-colors cursor-pointer group">
+                            <img src="https://placehold.co/100x100/E91E63/FFFFFF?text=Mix+2" alt="Workout Jams Album Art" class="w-full h-auto rounded-md mb-2 shadow-md">
+                            <h3 class="text-base font-semibold text-white truncate">Workout Jams</h3>
+                            <p class="text-xs text-gray-400">High energy for your workout</p>
+                            <button class="absolute bottom-12 right-4 bg-green-500 text-black p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2 transition-all duration-300 ease-in-out">
+                                <i class="fas fa-play text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </section>
             </div>
 
-            <!-- Main Sections - "Good evening" -->
-            <section class="mb-10">
-                <h2 class="text-3xl font-bold text-white mb-6">Good evening</h2>
-                <!-- Playlist Container - where fetched songs will be displayed -->
-                <div id="playlist" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-                    <!-- Loading State -->
-                    <div id="loading" class="col-span-full text-center py-10">
-                        <p class="text-xl text-gray-400">Loading your music...</p>
-                    </div>
-                    <!-- Error Message Container -->
-                    <div id="error-message" class="hidden col-span-full bg-red-800 border border-red-600 text-red-200 px-4 py-3 rounded-lg relative" role="alert">
-                        <strong class="font-bold">Oops!</strong>
-                        <span class="block sm:inline">Something went wrong while fetching the music.</span>
-                    </div>
+            <!-- Your Library View (Initially hidden) -->
+            <div id="library-view" class="hidden">
+                <h2 class="text-3xl font-bold text-white mb-6">Your Library</h2>
+                <!-- Search Bar for Library View -->
+                <div class="mb-8">
+                    <input type="text" id="library-search-input" placeholder="Search in your library..." class="w-full p-3 rounded-full bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500">
                 </div>
-            </section>
-
-            <!-- Placeholder for other sections (e.g., "Your top mixes") -->
-            <section class="mb-10">
-                <h2 class="text-3xl font-bold text-white mb-6">Your top mixes</h2>
-                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-                    <!-- Example Cards for demonstration -->
-                    <div class="relative bg-gray-800 p-3 rounded-lg shadow-lg hover:bg-gray-700 transition-colors cursor-pointer group">
-                        <img src="https://placehold.co/100x100/1DB954/FFFFFF?text=Mix+1" alt="Daily Mix 1 Album Art" class="w-full h-auto rounded-md mb-2 shadow-md">
-                        <h3 class="text-base font-semibold text-white truncate">Daily Mix 1</h3>
-                        <p class="text-xs text-gray-400">Chill beats for your morning</p>
-                        <!-- Play button overlay on hover -->
-                        <button class="absolute bottom-12 right-4 bg-green-500 text-black p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2 transition-all duration-300 ease-in-out">
-                            <i class="fas fa-play text-sm"></i>
-                        </button>
-                    </div>
-                    <div class="relative bg-gray-800 p-3 rounded-lg shadow-lg hover:bg-gray-700 transition-colors cursor-pointer group">
-                        <img src="https://placehold.co/100x100/E91E63/FFFFFF?text=Mix+2" alt="Workout Jams Album Art" class="w-full h-auto rounded-md mb-2 shadow-md">
-                        <h3 class="text-base font-semibold text-white truncate">Workout Jams</h3>
-                        <p class="text-xs text-gray-400">High energy for your workout</p>
-                        <button class="absolute bottom-12 right-4 bg-green-500 text-black p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2 transition-all duration-300 ease-in-out">
-                            <i class="fas fa-play text-sm"></i>
-                        </button>
-                    </div>
-                     <div class="relative bg-gray-800 p-3 rounded-lg shadow-lg hover:bg-gray-700 transition-colors cursor-pointer group">
-                        <img src="https://placehold.co/100x100/9C27B0/FFFFFF?text=Mix+3" alt="Focus Flow Album Art" class="w-full h-auto rounded-md mb-2 shadow-md">
-                        <h3 class="text-base font-semibold text-white truncate">Focus Flow</h3>
-                        <p class="text-xs text-gray-400">Background music for concentration</p>
-                        <button class="absolute bottom-12 right-4 bg-green-500 text-black p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2 transition-all duration-300 ease-in-out">
-                            <i class="fas fa-play text-sm"></i>
-                        </button>
-                    </div>
-                    <div class="relative bg-gray-800 p-3 rounded-lg shadow-lg hover:bg-gray-700 transition-colors cursor-pointer group">
-                        <img src="https://placehold.co/100x100/2196F3/FFFFFF?text=Mix+4" alt="Evening Acoustic Album Art" class="w-full h-auto rounded-md mb-2 shadow-md">
-                        <h3 class="text-base font-semibold text-white truncate">Evening Acoustic</h3>
-                        <p class="text-xs text-gray-400">Unwind with soothing tunes</p>
-                        <button class="absolute bottom-12 right-4 bg-green-500 text-black p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2 transition-all duration-300 ease-in-out">
-                            <i class="fas fa-play text-sm"></i>
-                        </button>
-                    </div>
-                     <div class="relative bg-gray-800 p-3 rounded-lg shadow-lg hover:bg-gray-700 transition-colors cursor-pointer group">
-                        <img src="https://placehold.co/100x100/FFC107/FFFFFF?text=Mix+5" alt="Road Trip Vibes Album Art" class="w-full h-auto rounded-md mb-2 shadow-md">
-                        <h3 class="text-base font-semibold text-white truncate">Road Trip Vibes</h3>
-                        <p class="text-xs text-gray-400">Perfect for long drives</p>
-                        <button class="absolute bottom-12 right-4 bg-green-500 text-black p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2 transition-all duration-300 ease-in-out">
-                            <i class="fas fa-play text-sm"></i>
-                        </button>
-                    </div>
+                <div id="library-playlist" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                    <p class="col-span-full text-center text-gray-400" id="empty-library-message">Your library is empty. Add some songs!</p>
                 </div>
-            </section>
+            </div>
         </main>
     </div>
 
@@ -269,9 +260,16 @@
     <!-- Hidden Audio Player - Used for actual playback -->
     <audio id="hidden-audio-player" class="hidden"></audio>
 
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed bottom-28 right-6 z-50 space-y-2">
+        <!-- Toasts will be appended here -->
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const playlistContainer = document.getElementById('playlist');
+            const playlistContainer = document.getElementById('playlist'); // Home view playlist
+            const libraryPlaylistContainer = document.getElementById('library-playlist'); // Library view playlist
+            const emptyLibraryMessage = document.getElementById('empty-library-message');
             const loadingIndicator = document.getElementById('loading');
             const errorMessage = document.getElementById('error-message');
             const hiddenAudioPlayer = document.getElementById('hidden-audio-player');
@@ -287,10 +285,18 @@
             const previousButton = document.getElementById('previous-button');
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const sidebar = document.getElementById('sidebar');
-            const searchInput = document.getElementById('search-input');
+            const homeSearchInput = document.getElementById('home-search-input');
+            const librarySearchInput = document.getElementById('library-search-input');
+            const navHome = document.getElementById('nav-home');
+            const navLibrary = document.getElementById('nav-library');
+            const homeView = document.getElementById('home-view');
+            const libraryView = document.getElementById('library-view');
+            const toastContainer = document.getElementById('toast-container');
 
-            let allSongs = []; // Stores all fetched songs
-            let currentSongIndex = -1; // Index of the currently playing song
+            let allSongs = []; // Stores all fetched songs from API
+            let userLibrarySongs = []; // Stores songs added to user's library
+            let currentSongIndex = -1; // Index of the currently playing song in `allSongs`
+            let currentActiveView = 'home'; // Tracks which view is currently active ('home' or 'library')
 
             // Array of vibrant colors for album art placeholders
             const albumArtColors = [
@@ -317,6 +323,23 @@
             const API_ENDPOINT = '/api/music'; // This works when deployed on Vercel
 
             /**
+             * Shows a temporary toast notification.
+             * @param {string} message - The message to display.
+             * @param {string} type - 'success' or 'info' for styling.
+             */
+            function showToast(message, type = 'info') {
+                const toast = document.createElement('div');
+                toast.className = `px-4 py-2 rounded-lg shadow-md text-white text-sm transition-opacity duration-300 ease-out ${type === 'success' ? 'bg-green-600' : 'bg-gray-700'}`;
+                toast.textContent = message;
+                toastContainer.appendChild(toast);
+
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                    toast.addEventListener('transitionend', () => toast.remove());
+                }, 3000); // Toast disappears after 3 seconds
+            }
+
+            /**
              * Fetches music data from the API endpoint.
              * Displays loading indicator and handles errors.
              */
@@ -331,8 +354,8 @@
                     // Hide loading indicator once data is fetched
                     loadingIndicator.style.display = 'none';
                     
-                    // Display all fetched songs initially
-                    displaySongs(allSongs);
+                    // Display all fetched songs initially in the home view
+                    displaySongs(allSongs, playlistContainer, 'home');
 
                 } catch (error) {
                     console.error('Failed to fetch music:', error);
@@ -343,35 +366,41 @@
             }
 
             /**
-             * Displays the given songs as Spotify-like cards in the playlist container.
+             * Displays the given songs as Spotify-like cards in the specified container.
              * @param {Array<Object>} songsToDisplay - An array of song objects to display.
+             * @param {HTMLElement} container - The DOM element where songs should be displayed.
+             * @param {string} viewType - 'home' or 'library' to determine card behavior.
              */
-            function displaySongs(songsToDisplay) {
+            function displaySongs(songsToDisplay, container, viewType) {
                 if (!songsToDisplay || songsToDisplay.length === 0) {
-                    playlistContainer.innerHTML = '<p class="col-span-full text-center text-gray-400">No songs found matching your criteria.</p>';
+                    container.innerHTML = `<p class="col-span-full text-center text-gray-400">No songs found matching your criteria.</p>`;
+                    // Show empty message only for library view if it's truly empty
+                    if (viewType === 'library') {
+                        emptyLibraryMessage.classList.remove('hidden');
+                    }
                     return;
+                }
+                if (viewType === 'library') {
+                    emptyLibraryMessage.classList.add('hidden');
                 }
 
                 // Clear any existing content
-                playlistContainer.innerHTML = '';
+                container.innerHTML = '';
 
                 songsToDisplay.forEach((song, index) => {
+                    // Find the original index of the song in `allSongs` for consistent album art color and playback
+                    const originalSongIndex = allSongs.findIndex(s => s.secure_url === song.secure_url);
+                    const albumArtBgColor = albumArtColors[originalSongIndex % albumArtColors.length];
+
                     // Create the card element for each song
                     const songCard = document.createElement('div');
                     songCard.className = 'relative bg-gray-800 p-3 rounded-lg shadow-lg hover:bg-gray-700 transition-colors cursor-pointer group';
                     
                     // Create Album Art image
                     const albumArt = document.createElement('img');
-                    // Get a color from the array, cycling through them based on the song's original index
-                    // This ensures consistent color for the same song even after filtering
-                    const originalSongIndex = allSongs.findIndex(s => s.secure_url === song.secure_url);
-                    const albumArtBgColor = albumArtColors[originalSongIndex % albumArtColors.length];
-                    
-                    // Generate a placeholder image URL based on the song title and unique color
                     albumArt.src = `https://placehold.co/100x100/${albumArtBgColor}/FFFFFF?text=${encodeURIComponent(song.title.substring(0, Math.min(song.title.length, 5)))}`; 
                     albumArt.alt = song.title;
                     albumArt.className = 'w-full h-auto rounded-md mb-2 shadow-md';
-                    // Fallback image in case the generated one fails
                     albumArt.onerror = () => albumArt.src = `https://placehold.co/100x100/${albumArtBgColor}/FFFFFF?text=Album`; 
 
                     // Create Song Title element
@@ -389,21 +418,128 @@
                     playButtonOverlay.className = 'absolute bottom-12 right-4 bg-green-500 text-black p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2 transition-all duration-300 ease-in-out';
                     playButtonOverlay.innerHTML = '<i class="fas fa-play text-sm"></i>';
 
+                    // Create Three-dot menu button
+                    const threeDotButton = document.createElement('button');
+                    threeDotButton.className = 'absolute top-3 right-3 text-gray-400 hover:text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity';
+                    threeDotButton.innerHTML = '<i class="fas fa-ellipsis-h"></i>';
+
+                    // Create dropdown for "Add to Library" option
+                    const dropdown = document.createElement('div');
+                    dropdown.className = 'absolute top-10 right-3 bg-gray-700 text-white rounded-md shadow-lg p-2 text-sm z-10 hidden';
+                    
+                    const addLibOption = document.createElement('button');
+                    addLibOption.className = 'block w-full text-left px-3 py-2 hover:bg-gray-600 rounded-md';
+                    addLibOption.textContent = 'Add to Your Library';
+                    dropdown.appendChild(addLibOption);
+
+                    // Check if song is already in library to update button text/state
+                    const isAlreadyInLibrary = userLibrarySongs.some(libSong => libSong.secure_url === song.secure_url);
+                    if (isAlreadyInLibrary) {
+                        addLibOption.textContent = 'Added to Library';
+                        addLibOption.disabled = true;
+                        addLibOption.classList.add('opacity-50', 'cursor-not-allowed');
+                    }
+
                     // Append all elements to the song card
                     songCard.appendChild(albumArt);
                     songCard.appendChild(titleElement);
                     songCard.appendChild(artistElement);
                     songCard.appendChild(playButtonOverlay);
-                    playlistContainer.appendChild(songCard);
+                    songCard.appendChild(threeDotButton);
+                    songCard.appendChild(dropdown); // Append dropdown to card
 
-                    // Add event listener to the whole card to play the song
-                    songCard.addEventListener('click', () => playSong(originalSongIndex)); // Use original index for playback
-                    // Add event listener to the play button overlay to play the song
+                    container.appendChild(songCard);
+
+                    // Event listener to play the song
+                    songCard.addEventListener('click', (e) => {
+                        // Only play if not clicking the three-dot button or dropdown
+                        if (!threeDotButton.contains(e.target) && !dropdown.contains(e.target)) {
+                            playSong(originalSongIndex);
+                        }
+                    });
                     playButtonOverlay.addEventListener('click', (e) => {
                         e.stopPropagation(); // Prevent the card's click event from firing simultaneously
-                        playSong(originalSongIndex); // Use original index for playback
+                        playSong(originalSongIndex);
+                    });
+
+                    // Event listener for three-dot button to toggle dropdown
+                    threeDotButton.addEventListener('click', (e) => {
+                        e.stopPropagation(); // Prevent card click and other clicks
+                        dropdown.classList.toggle('hidden');
+                        // Close other dropdowns
+                        document.querySelectorAll('.song-card-dropdown').forEach(openDropdown => {
+                            if (openDropdown !== dropdown) {
+                                openDropdown.classList.add('hidden');
+                            }
+                        });
+                    });
+
+                    // Event listener for "Add to Your Library" option
+                    addLibOption.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        if (!addLibOption.disabled) {
+                            addSongToLibrary(song);
+                            dropdown.classList.add('hidden'); // Hide dropdown after click
+                            addLibOption.textContent = 'Added to Library';
+                            addLibOption.disabled = true;
+                            addLibOption.classList.add('opacity-50', 'cursor-not-allowed');
+                        }
+                    });
+
+                    // Hide dropdown if clicked outside
+                    document.addEventListener('click', (e) => {
+                        if (!songCard.contains(e.target)) {
+                            dropdown.classList.add('hidden');
+                        }
                     });
                 });
+            }
+
+            /**
+             * Adds a song to the user's local library.
+             * @param {Object} song - The song object to add.
+             */
+            function addSongToLibrary(song) {
+                // Check if the song is already in the library
+                const isAlreadyAdded = userLibrarySongs.some(libSong => libSong.secure_url === song.secure_url);
+
+                if (!isAlreadyAdded) {
+                    userLibrarySongs.push(song);
+                    saveLibraryToLocalStorage();
+                    showToast('Song added to library!', 'success');
+                    // If currently in library view, refresh it to show the new song
+                    if (currentActiveView === 'library') {
+                        displaySongs(userLibrarySongs, libraryPlaylistContainer, 'library');
+                    }
+                } else {
+                    showToast('Song already in library!', 'info');
+                }
+            }
+
+            /**
+             * Loads user's library from localStorage.
+             */
+            function loadLibraryFromLocalStorage() {
+                try {
+                    const storedLibrary = localStorage.getItem('userLibrarySongs');
+                    if (storedLibrary) {
+                        userLibrarySongs = JSON.parse(storedLibrary);
+                    }
+                } catch (e) {
+                    console.error("Failed to load library from local storage:", e);
+                    userLibrarySongs = [];
+                }
+            }
+
+            /**
+             * Saves user's library to localStorage.
+             */
+            function saveLibraryToLocalStorage() {
+                try {
+                    localStorage.setItem('userLibrarySongs', JSON.stringify(userLibrarySongs));
+                } catch (e) {
+                    console.error("Failed to save library to local storage:", e);
+                }
             }
 
             /**
@@ -533,21 +669,63 @@
                 sidebar.classList.toggle('flex'); // Toggle flex class
             });
 
-            // Search functionality
-            searchInput.addEventListener('input', () => {
-                const query = searchInput.value.toLowerCase().trim();
+            // Home View Search functionality
+            homeSearchInput.addEventListener('input', () => {
+                const query = homeSearchInput.value.toLowerCase().trim();
                 if (query === '') {
-                    displaySongs(allSongs); // Show all songs if search is empty
+                    displaySongs(allSongs, playlistContainer, 'home'); // Show all songs if search is empty
                 } else {
                     const filteredSongs = allSongs.filter(song => 
                         song.title.toLowerCase().includes(query)
                     );
-                    displaySongs(filteredSongs); // Display only matching songs
+                    displaySongs(filteredSongs, playlistContainer, 'home'); // Display only matching songs
                 }
             });
 
-            // Initial call to fetch the music when the page loads
-            fetchMusic();
+            // Library View Search functionality
+            librarySearchInput.addEventListener('input', () => {
+                const query = librarySearchInput.value.toLowerCase().trim();
+                if (query === '') {
+                    displaySongs(userLibrarySongs, libraryPlaylistContainer, 'library'); // Show all library songs
+                } else {
+                    const filteredLibrarySongs = userLibrarySongs.filter(song => 
+                        song.title.toLowerCase().includes(query)
+                    );
+                    displaySongs(filteredLibrarySongs, libraryPlaylistContainer, 'library'); // Display matching library songs
+                }
+            });
+
+            // Navigation between Home and Library views
+            function showView(viewName) {
+                homeView.classList.add('hidden');
+                libraryView.classList.add('hidden');
+                document.getElementById(`${viewName}-view`).classList.remove('hidden');
+                currentActiveView = viewName;
+
+                // If switching to library, refresh its display
+                if (viewName === 'library') {
+                    displaySongs(userLibrarySongs, libraryPlaylistContainer, 'library');
+                    librarySearchInput.value = ''; // Clear library search on view switch
+                } else {
+                    homeSearchInput.value = ''; // Clear home search on view switch
+                    displaySongs(allSongs, playlistContainer, 'home'); // Refresh home view
+                }
+            }
+
+            navHome.addEventListener('click', (e) => {
+                e.preventDefault();
+                showView('home');
+            });
+
+            navLibrary.addEventListener('click', (e) => {
+                e.preventDefault();
+                showView('library');
+            });
+
+            // Initial calls
+            loadLibraryFromLocalStorage(); // Load library on start
+            fetchMusic(); // Fetch all songs
+            showView('home'); // Show home view by default
         });
     </script>
 
