@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Music Stream</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles for a cleaner audio player */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* A light gray background */
+        }
+        /* Style the audio player */
+        audio {
+            width: 100%;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div class="container mx-auto p-4 sm:p-6 lg:p-8 max-w-4xl">
+
+        <!-- Header -->
+        <header class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-900">My Music Cloud</h1>
+            <p class="text-lg text-gray-600 mt-2">Songs streamed directly from the cloud.</p>
+        </header>
+
+        <!-- Playlist Container -->
+        <main id="playlist" class="space-y-6">
+            <!-- Loading State -->
+            <div id="loading" class="text-center py-10">
+                <p class="text-xl text-gray-500">Loading your music...</p>
+            </div>
+            <!-- Error Message Container -->
+            <div id="error-message" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg relative" role="alert">
+                <strong class="font-bold">Oops!</strong>
+                <span class="block sm:inline">Something went wrong while fetching the music.</span>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="text-center mt-12 text-gray-500">
+            <p>Powered by Cloudinary & Vercel</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const playlistContainer = document.getElementById('playlist');
+            const loadingIndicator = document.getElementById('loading');
+            const errorMessage = document.getElementById('error-message');
+
+            // --- IMPORTANT ---
+            // Replace this URL with the URL of your deployed serverless function.
+            // If you are developing locally with the Vercel CLI, this will be http://localhost:3000/api/music
+            const API_ENDPOINT = '/api/music'; // This works when deployed on Vercel
+
+            // Function to fetch music from our serverless API
+            async function fetchMusic() {
+                try {
+                    const response = await fetch(API_ENDPOINT);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    const songs = await response.json();
+                    
+                    // Hide loading indicator
+                    loadingIndicator.style.display = 'none';
+                    
+                    // Display the songs
+                    displaySongs(songs);
+
+                } catch (error) {
+                    console.error('Failed to fetch music:', error);
+                    // Hide loading indicator and show error message
+                    loadingIndicator.style.display = 'none';
+                    errorMessage.classList.remove('hidden');
+                }
+            }
+
+            // Function to display the songs on the page
+            function displaySongs(songs) {
+                if (!songs || songs.length === 0) {
+                    playlistContainer.innerHTML = '<p class="text-center text-gray-500">No songs found. Upload some MP3 or WAV files to Cloudinary!</p>';
+                    return;
+                }
+
+                // Clear any existing content (like the loading indicator)
+                playlistContainer.innerHTML = '';
+
+                songs.forEach(song => {
+                    // Create the card for each song
+                    const songElement = document.createElement('div');
+                    songElement.className = 'bg-white p-4 rounded-lg shadow-md flex flex-col space-y-3';
+                    
+                    // Create the title element
+                    const titleElement = document.createElement('h2');
+                    titleElement.className = 'text-xl font-semibold text-gray-800';
+                    titleElement.textContent = song.title;
+
+                    // Create the audio player element
+                    const audioElement = document.createElement('audio');
+                    audioElement.controls = true;
+                    audioElement.src = song.secure_url;
+                    audioElement.preload = 'metadata'; // Only load metadata initially
+
+                    // Append title and audio player to the song card
+                    songElement.appendChild(titleElement);
+                    songElement.appendChild(audioElement);
+
+                    // Append the song card to the playlist container
+                    playlistContainer.appendChild(songElement);
+                });
+            }
+
+            // Initial call to fetch the music
+            fetchMusic();
+        });
+    </script>
+
+</body>
+</html>
