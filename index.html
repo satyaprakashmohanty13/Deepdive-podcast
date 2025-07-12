@@ -97,8 +97,8 @@
     <div class="flex flex-1 overflow-hidden">
 
         <!-- Sidebar -->
-        <!-- Hidden on small screens, visible on medium and larger screens -->
-        <aside class="w-64 bg-black text-white p-4 flex flex-col hidden md:flex">
+        <!-- Hidden on small screens by default, toggled by JS, visible on medium and larger screens -->
+        <aside id="sidebar" class="w-64 bg-black text-white p-4 flex-col hidden md:flex">
             <!-- Spotify Logo (Placeholder) -->
             <div class="mb-8 mt-2">
                 <img src="https://placehold.co/120x40/000000/1DB954?text=Spotify" alt="Spotify Logo" class="h-10">
@@ -135,11 +135,15 @@
             <!-- Top Bar (for navigation and user actions) -->
             <div class="flex justify-between items-center mb-8">
                 <div class="flex items-center space-x-4">
+                    <!-- Hamburger menu for mobile -->
+                    <button id="mobile-menu-button" class="bg-black text-white p-2 rounded-full hover:bg-gray-800 transition-colors md:hidden">
+                        <i class="fas fa-bars"></i>
+                    </button>
                     <!-- Navigation buttons -->
-                    <button class="bg-black text-white p-2 rounded-full hover:bg-gray-800 transition-colors">
+                    <button class="bg-black text-white p-2 rounded-full hover:bg-gray-800 transition-colors hidden md:block">
                         <i class="fas fa-chevron-left"></i>
                     </button>
-                    <button class="bg-black text-white p-2 rounded-full hover:bg-gray-800 transition-colors">
+                    <button class="bg-black text-white p-2 rounded-full hover:bg-gray-800 transition-colors hidden md:block">
                         <i class="fas fa-chevron-right"></i>
                     </button>
                 </div>
@@ -172,36 +176,36 @@
                 <h2 class="text-3xl font-bold text-white mb-6">Your top mixes</h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                     <!-- Example Cards for demonstration -->
-                    <div class="relative bg-gray-800 p-4 rounded-lg shadow-lg hover:bg-gray-700 transition-colors cursor-pointer group">
-                        <img src="https://placehold.co/150x150/1DB954/FFFFFF?text=Mix+1" alt="Daily Mix 1 Album Art" class="w-full h-auto rounded-md mb-4 shadow-md">
+                    <div class="relative bg-gray-800 p-3 rounded-lg shadow-lg hover:bg-gray-700 transition-colors cursor-pointer group">
+                        <img src="https://placehold.co/120x120/1DB954/FFFFFF?text=Mix+1" alt="Daily Mix 1 Album Art" class="w-full h-auto rounded-md mb-3 shadow-md">
                         <h3 class="text-lg font-semibold text-white truncate">Daily Mix 1</h3>
                         <p class="text-sm text-gray-400">Chill beats for your morning</p>
                         <!-- Play button overlay on hover -->
-                        <button class="absolute bottom-20 right-6 bg-green-500 text-black p-3 rounded-full shadow-lg opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2 transition-all duration-300 ease-in-out">
+                        <button class="absolute bottom-16 right-5 bg-green-500 text-black p-3 rounded-full shadow-lg opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2 transition-all duration-300 ease-in-out">
                             <i class="fas fa-play"></i>
                         </button>
                     </div>
-                    <div class="relative bg-gray-800 p-4 rounded-lg shadow-lg hover:bg-gray-700 transition-colors cursor-pointer group">
-                        <img src="https://placehold.co/150x150/1DB954/FFFFFF?text=Mix+2" alt="Workout Jams Album Art" class="w-full h-auto rounded-md mb-4 shadow-md">
+                    <div class="relative bg-gray-800 p-3 rounded-lg shadow-lg hover:bg-gray-700 transition-colors cursor-pointer group">
+                        <img src="https://placehold.co/120x120/1DB954/FFFFFF?text=Mix+2" alt="Workout Jams Album Art" class="w-full h-auto rounded-md mb-3 shadow-md">
                         <h3 class="text-lg font-semibold text-white truncate">Workout Jams</h3>
                         <p class="text-sm text-gray-400">High energy for your workout</p>
-                        <button class="absolute bottom-20 right-6 bg-green-500 text-black p-3 rounded-full shadow-lg opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2 transition-all duration-300 ease-in-out">
+                        <button class="absolute bottom-16 right-5 bg-green-500 text-black p-3 rounded-full shadow-lg opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2 transition-all duration-300 ease-in-out">
                             <i class="fas fa-play"></i>
                         </button>
                     </div>
-                     <div class="relative bg-gray-800 p-4 rounded-lg shadow-lg hover:bg-gray-700 transition-colors cursor-pointer group">
-                        <img src="https://placehold.co/150x150/1DB954/FFFFFF?text=Mix+3" alt="Focus Flow Album Art" class="w-full h-auto rounded-md mb-4 shadow-md">
+                     <div class="relative bg-gray-800 p-3 rounded-lg shadow-lg hover:bg-gray-700 transition-colors cursor-pointer group">
+                        <img src="https://placehold.co/120x120/1DB954/FFFFFF?text=Mix+3" alt="Focus Flow Album Art" class="w-full h-auto rounded-md mb-3 shadow-md">
                         <h3 class="text-lg font-semibold text-white truncate">Focus Flow</h3>
                         <p class="text-sm text-gray-400">Background music for concentration</p>
-                        <button class="absolute bottom-20 right-6 bg-green-500 text-black p-3 rounded-full shadow-lg opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2 transition-all duration-300 ease-in-out">
+                        <button class="absolute bottom-16 right-5 bg-green-500 text-black p-3 rounded-full shadow-lg opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2 transition-all duration-300 ease-in-out">
                             <i class="fas fa-play"></i>
                         </button>
                     </div>
-                    <div class="relative bg-gray-800 p-4 rounded-lg shadow-lg hover:bg-gray-700 transition-colors cursor-pointer group">
-                        <img src="https://placehold.co/150x150/1DB954/FFFFFF?text=Mix+4" alt="Evening Acoustic Album Art" class="w-full h-auto rounded-md mb-4 shadow-md">
+                    <div class="relative bg-gray-800 p-3 rounded-lg shadow-lg hover:bg-gray-700 transition-colors cursor-pointer group">
+                        <img src="https://placehold.co/120x120/1DB954/FFFFFF?text=Mix+4" alt="Evening Acoustic Album Art" class="w-full h-auto rounded-md mb-3 shadow-md">
                         <h3 class="text-lg font-semibold text-white truncate">Evening Acoustic</h3>
                         <p class="text-sm text-gray-400">Unwind with soothing tunes</p>
-                        <button class="absolute bottom-20 right-6 bg-green-500 text-black p-3 rounded-full shadow-lg opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2 transition-all duration-300 ease-in-out">
+                        <button class="absolute bottom-16 right-5 bg-green-500 text-black p-3 rounded-full shadow-lg opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2 transition-all duration-300 ease-in-out">
                             <i class="fas fa-play"></i>
                         </button>
                     </div>
@@ -225,11 +229,11 @@
         <div class="flex flex-col items-center justify-center w-1/3 max-w-xl">
             <div class="flex items-center space-x-6 mb-2">
                 <button class="text-gray-400 hover:text-white text-xl"><i class="fas fa-random"></i></button>
-                <button class="text-gray-400 hover:text-white text-xl"><i class="fas fa-step-backward"></i></button>
+                <button id="previous-button" class="text-gray-400 hover:text-white text-xl"><i class="fas fa-step-backward"></i></button>
                 <button id="play-pause-button" class="bg-white text-black p-3 rounded-full text-xl hover:scale-105 transition-transform">
                     <i class="fas fa-play"></i>
                 </button>
-                <button class="text-gray-400 hover:text-white text-xl"><i class="fas fa-step-forward"></i></button>
+                <button id="next-button" class="text-gray-400 hover:text-white text-xl"><i class="fas fa-step-forward"></i></button>
                 <button class="text-gray-400 hover:text-white text-xl"><i class="fas fa-redo"></i></button>
             </div>
             <!-- Progress Bar -->
@@ -266,8 +270,27 @@
             const currentSongTitle = document.getElementById('current-song-title');
             const currentSongArtist = document.getElementById('current-song-artist');
             const currentSongAlbumArt = document.getElementById('current-song-album-art');
+            const nextButton = document.getElementById('next-button');
+            const previousButton = document.getElementById('previous-button');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const sidebar = document.getElementById('sidebar');
 
-            let currentPlayingSong = null; // To keep track of the currently playing song object
+            let allSongs = []; // Stores all fetched songs
+            let currentSongIndex = -1; // Index of the currently playing song
+
+            // Array of vibrant colors for album art placeholders
+            const albumArtColors = [
+                '#1DB954', // Spotify Green
+                '#E91E63', // Pink
+                '#9C27B0', // Purple
+                '#2196F3', // Blue
+                '#FFC107', // Amber
+                '#FF5722', // Deep Orange
+                '#00BCD4', // Cyan
+                '#8BC34A', // Light Green
+                '#FFEB3B', // Yellow
+                '#607D8B'  // Blue Grey
+            ];
 
             // --- IMPORTANT ---
             // Replace this URL with the URL of your deployed serverless function.
@@ -284,13 +307,13 @@
                     if (!response.ok) {
                         throw new Error(`HTTP error! Status: ${response.status}`);
                     }
-                    const songs = await response.json();
+                    allSongs = await response.json(); // Store fetched songs globally
                     
                     // Hide loading indicator once data is fetched
                     loadingIndicator.style.display = 'none';
                     
                     // Display the fetched songs
-                    displaySongs(songs);
+                    displaySongs(allSongs);
 
                 } catch (error) {
                     console.error('Failed to fetch music:', error);
@@ -314,23 +337,21 @@
                 // Clear any existing content (like the loading indicator)
                 playlistContainer.innerHTML = '';
 
-                songs.forEach(song => {
+                songs.forEach((song, index) => {
                     // Create the card element for each song
                     const songCard = document.createElement('div');
-                    songCard.className = 'relative bg-gray-800 p-4 rounded-lg shadow-lg hover:bg-gray-700 transition-colors cursor-pointer group';
-                    // Store song data as data attributes for easy access
-                    songCard.dataset.src = song.secure_url;
-                    songCard.dataset.title = song.title;
-                    songCard.dataset.artist = 'Unknown Artist'; // Placeholder for artist, ideally from API
-
+                    songCard.className = 'relative bg-gray-800 p-3 rounded-lg shadow-lg hover:bg-gray-700 transition-colors cursor-pointer group';
+                    
                     // Create Album Art image
                     const albumArt = document.createElement('img');
-                    // Generate a placeholder image URL based on the song title
-                    albumArt.src = `https://placehold.co/150x150/1DB954/FFFFFF?text=${encodeURIComponent(song.title.substring(0, 5))}`; 
+                    // Get a color from the array, cycling through them
+                    const albumArtBgColor = albumArtColors[index % albumArtColors.length];
+                    // Generate a placeholder image URL based on the song title and unique color
+                    albumArt.src = `https://placehold.co/120x120/${albumArtBgColor.substring(1)}/FFFFFF?text=${encodeURIComponent(song.title.substring(0, Math.min(song.title.length, 5)))}`; 
                     albumArt.alt = song.title;
-                    albumArt.className = 'w-full h-auto rounded-md mb-4 shadow-md';
+                    albumArt.className = 'w-full h-auto rounded-md mb-3 shadow-md';
                     // Fallback image in case the generated one fails
-                    albumArt.onerror = () => albumArt.src = 'https://placehold.co/150x150/1DB954/FFFFFF?text=Album'; 
+                    albumArt.onerror = () => albumArt.src = `https://placehold.co/120x120/${albumArtBgColor.substring(1)}/FFFFFF?text=Album`; 
 
                     // Create Song Title element
                     const titleElement = document.createElement('h3');
@@ -344,7 +365,7 @@
 
                     // Create Play Button Overlay
                     const playButtonOverlay = document.createElement('button');
-                    playButtonOverlay.className = 'absolute bottom-20 right-6 bg-green-500 text-black p-3 rounded-full shadow-lg opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2 transition-all duration-300 ease-in-out';
+                    playButtonOverlay.className = 'absolute bottom-16 right-5 bg-green-500 text-black p-3 rounded-full shadow-lg opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2 transition-all duration-300 ease-in-out';
                     playButtonOverlay.innerHTML = '<i class="fas fa-play"></i>';
 
                     // Append all elements to the song card
@@ -355,30 +376,40 @@
                     playlistContainer.appendChild(songCard);
 
                     // Add event listener to the whole card to play the song
-                    songCard.addEventListener('click', () => playSong(song.secure_url, song.title, 'Unknown Artist'));
+                    songCard.addEventListener('click', () => playSong(index));
                     // Add event listener to the play button overlay to play the song
                     playButtonOverlay.addEventListener('click', (e) => {
                         e.stopPropagation(); // Prevent the card's click event from firing simultaneously
-                        playSong(song.secure_url, song.title, 'Unknown Artist');
+                        playSong(index);
                     });
                 });
             }
 
             /**
-             * Plays a specified song in the hidden audio player and updates the player bar UI.
-             * @param {string} src - The URL of the audio file.
-             * @param {string} title - The title of the song.
-             * @param {string} artist - The artist of the song.
+             * Plays a song based on its index in the allSongs array and updates the player bar UI.
+             * @param {number} index - The index of the song to play in the allSongs array.
              */
-            function playSong(src, title, artist) {
-                if (hiddenAudioPlayer.src !== src) {
-                    // If a new song is selected, load it and play
-                    hiddenAudioPlayer.src = src;
-                    currentPlayingSong = { src, title, artist };
-                    currentSongTitle.textContent = title;
-                    currentSongArtist.textContent = artist;
-                    // Update album art in the player bar
-                    currentSongAlbumArt.src = `https://placehold.co/60x60/1DB954/FFFFFF?text=${encodeURIComponent(title.substring(0, 3))}`; 
+            function playSong(index) {
+                if (index < 0 || index >= allSongs.length) {
+                    console.error('Invalid song index:', index);
+                    return;
+                }
+
+                const song = allSongs[index];
+                if (!song) {
+                    console.error('Song not found at index:', index);
+                    return;
+                }
+
+                // If a new song is selected or the current one is different, load and play
+                if (hiddenAudioPlayer.src !== song.secure_url) {
+                    hiddenAudioPlayer.src = song.secure_url;
+                    currentSongIndex = index; // Update the current song index
+                    currentSongTitle.textContent = song.title;
+                    currentSongArtist.textContent = 'Unknown Artist'; // Placeholder
+                    // Update album art in the player bar with the correct color
+                    const albumArtBgColor = albumArtColors[currentSongIndex % albumArtColors.length];
+                    currentSongAlbumArt.src = `https://placehold.co/60x60/${albumArtBgColor.substring(1)}/FFFFFF?text=${encodeURIComponent(song.title.substring(0, Math.min(song.title.length, 3)))}`; 
                     hiddenAudioPlayer.play();
                     playPauseButton.innerHTML = '<i class="fas fa-pause"></i>'; // Change icon to pause
                 } else if (hiddenAudioPlayer.paused) {
@@ -402,7 +433,32 @@
                         hiddenAudioPlayer.pause();
                         playPauseButton.innerHTML = '<i class="fas fa-play"></i>';
                     }
+                } else if (allSongs.length > 0) {
+                    // If no song is loaded but songs are available, play the first one
+                    playSong(0);
                 }
+            });
+
+            // Event listener for the next song button
+            nextButton.addEventListener('click', () => {
+                if (allSongs.length === 0) return; // No songs to play
+
+                let nextIndex = currentSongIndex + 1;
+                if (nextIndex >= allSongs.length) {
+                    nextIndex = 0; // Loop back to the first song
+                }
+                playSong(nextIndex);
+            });
+
+            // Event listener for the previous song button
+            previousButton.addEventListener('click', () => {
+                if (allSongs.length === 0) return; // No songs to play
+
+                let prevIndex = currentSongIndex - 1;
+                if (prevIndex < 0) {
+                    prevIndex = allSongs.length - 1; // Loop back to the last song
+                }
+                playSong(prevIndex);
             });
 
             // Update progress bar and current time as song plays
@@ -419,6 +475,11 @@
                 if (!isNaN(hiddenAudioPlayer.duration)) {
                     durationSpan.textContent = formatTime(hiddenAudioPlayer.duration);
                 }
+            });
+
+            // When song ends, play the next one
+            hiddenAudioPlayer.addEventListener('ended', () => {
+                nextButton.click(); // Simulate a click on the next button
             });
 
             // Seek functionality: when user drags the progress bar
@@ -445,6 +506,15 @@
                 return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
             }
 
+            // Mobile menu toggle functionality
+            mobileMenuButton.addEventListener('click', () => {
+                sidebar.classList.toggle('hidden'); // Toggle hidden class
+                sidebar.classList.toggle('flex'); // Toggle flex class
+                // Optional: Add overlay to dim main content when sidebar is open on mobile
+                // For a more robust mobile menu, you might want to use a fixed overlay
+                // and transform the sidebar, but for simple toggle, this works.
+            });
+
             // Initial call to fetch the music when the page loads
             fetchMusic();
         });
@@ -452,4 +522,3 @@
 
 </body>
 </html>
-
