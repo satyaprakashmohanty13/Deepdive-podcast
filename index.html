@@ -117,14 +117,14 @@
                 </a>
             </nav>
 
-            <!-- Playlists Section (Placeholder) -->
+            <!-- Playlists Section -->
             <div class="mt-8">
                 <h3 class="text-md font-bold text-gray-400 mb-4 uppercase tracking-wider">Playlists</h3>
                 <ul class="space-y-2 text-sm">
-                    <li><a href="#" class="block text-gray-400 hover:text-white transition-colors rounded-md p-1">My Top Songs</a></li>
-                    <li><a href="#" class="block text-gray-400 hover:text-white transition-colors rounded-md p-1">Discover Weekly</a></li>
-                    <li><a href="#" class="block text-gray-400 hover:text-white transition-colors rounded-md p-1">Liked Songs</a></li>
-                    <li><a href="#" class="block text-gray-400 hover:text-white transition-colors rounded-md p-1">Workout Mix</a></li>
+                    <li><a href="#" id="playlist-my-top-songs" class="block text-gray-400 hover:text-white transition-colors rounded-md p-1">My Top Songs</a></li>
+                    <li><a href="#" id="playlist-discover-weekly" class="block text-gray-400 hover:text-white transition-colors rounded-md p-1">Discover Weekly</a></li>
+                    <li><a href="#" id="playlist-liked-songs" class="block text-gray-400 hover:text-white transition-colors rounded-md p-1">Liked Songs</a></li>
+                    <li><a href="#" id="playlist-workout-mix" class="block text-gray-400 hover:text-white transition-colors rounded-md p-1">Workout Mix</a></li>
                 </ul>
             </div>
         </aside>
@@ -300,6 +300,13 @@
             const homeView = document.getElementById('home-view');
             const libraryView = document.getElementById('library-view');
             const toastContainer = document.getElementById('toast-container');
+
+            // Playlist specific elements
+            const playlistMyTopSongs = document.getElementById('playlist-my-top-songs');
+            const playlistDiscoverWeekly = document.getElementById('playlist-discover-weekly');
+            const playlistLikedSongs = document.getElementById('playlist-liked-songs');
+            const playlistWorkoutMix = document.getElementById('playlist-workout-mix');
+
 
             let allSongs = []; // Stores all fetched songs from API
             let userLibrarySongs = []; // Stores songs added to user's library
@@ -729,6 +736,57 @@
                 e.preventDefault();
                 showView('library');
             });
+
+            /**
+             * Filters and displays songs based on playlist criteria.
+             * @param {string} playlistType - The type of playlist ('my-top-songs', 'discover-weekly', 'liked-songs', 'workout-mix').
+             */
+            function filterAndDisplayPlaylist(playlistType) {
+                let filteredSongs = [];
+                homeSearchInput.value = ''; // Clear search input when a playlist is selected
+                showView('home'); // Always switch to home view for playlists
+
+                switch (playlistType) {
+                    case 'my-top-songs':
+                        filteredSongs = allSongs; // Display all songs for "My Top Songs"
+                        break;
+                    case 'discover-weekly':
+                        filteredSongs = allSongs.filter(song => song.title.startsWith('*'));
+                        break;
+                    case 'liked-songs':
+                        filteredSongs = allSongs.filter(song => song.title.startsWith('#'));
+                        break;
+                    case 'workout-mix':
+                        filteredSongs = allSongs.filter(song => /^\d/.test(song.title)); // Starts with a digit
+                        break;
+                    default:
+                        filteredSongs = allSongs;
+                        break;
+                }
+                displaySongs(filteredSongs, playlistContainer, 'home');
+            }
+
+            // Event listeners for playlists
+            playlistMyTopSongs.addEventListener('click', (e) => {
+                e.preventDefault();
+                filterAndDisplayPlaylist('my-top-songs');
+            });
+
+            playlistDiscoverWeekly.addEventListener('click', (e) => {
+                e.preventDefault();
+                filterAndDisplayPlaylist('discover-weekly');
+            });
+
+            playlistLikedSongs.addEventListener('click', (e) => {
+                e.preventDefault();
+                filterAndDisplayPlaylist('liked-songs');
+            });
+
+            playlistWorkoutMix.addEventListener('click', (e) => {
+                e.preventDefault();
+                filterAndDisplayPlaylist('workout-mix');
+            });
+
 
             // Initial calls
             loadLibraryFromLocalStorage(); // Load library on start
